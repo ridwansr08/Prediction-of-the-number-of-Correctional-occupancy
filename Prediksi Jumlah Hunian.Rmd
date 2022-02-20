@@ -1,0 +1,131 @@
+---
+title: "growth of prisoners and convicts"
+author: "Ridwan Setia Rahman"
+date: "2/20/2022"
+output:
+  html_document: default
+---
+
+# Install dan Import Library
+
+```{r}
+# list_package = c('dplyr','forecast','echarts4r','readxl')
+# install.packages(list_package)
+library(dplyr)
+library(forecast)
+library(echarts4r)
+library(readxl)
+options(scipen = 100)
+```
+
+# DISCLAIMER
+
+## The data used can be retrieved on the website
+
+### <http://sdppublik.ditjenpas.go.id/analisis/public/grl/bulanan>
+
+# import data on the number of occupants from 2012 to 2021
+
+```{r}
+hunian = read_excel("Dataset/JUMLAH HUNIAN.xlsx")
+```
+
+# Prisoner Data
+
+## take data on the number of prisoner and make a line graph
+
+```{r}
+tahanan <- hunian[,2]
+tahanan_ts = ts(tahanan,frequency = 12,start = c(2012,1))
+plot(tahanan_ts)
+```
+
+## Prisoner data prediction with Forecasts Algorithm
+
+### make predictions of prisoner data, calculate accuracy and enter into line graphs
+
+```{r}
+tah_mod = auto.arima(tahanan_ts)
+tah_result = data.frame(tah_mod$fitted)
+tahanan_predict = forecast(tah_mod,h = 6)
+accuracy(tahanan_predict)
+plot(tahanan_predict)
+```
+
+### make prediction data on the number of prisoners into a dataframe
+
+```{r}
+tahanan_predict = data.frame(tahanan_predict)
+colnames(tahanan_predict)[colnames(tahanan_predict)=='Point.Forecast'] = 'Tahanan'
+```
+
+# Convict Data
+
+## take data on the number of Convict and make a line graph
+
+```{r}
+napi <- hunian[,3]
+napi_ts = ts(napi,frequency = 12,start = c(2012,1))
+plot(napi_ts)
+```
+
+## Convict data prediction with Forecasts Algorithm
+
+### make predictions of Convict data, calculate accuracy and enter into line graphs
+
+```{r}
+napi_mod = auto.arima(napi_ts)
+napi_result = data.frame(napi_mod$fitted)
+napi_predict = forecast(napi_mod,h = 6)
+accuracy(napi_predict)
+plot(napi_predict)
+```
+
+### make prediction data on the number of prisoners into a dataframe
+
+```{r}
+napi_predict = data.frame(napi_predict)
+colnames(napi_predict)[colnames(napi_predict)=='Point.Forecast'] = 'Narapidana'
+```
+
+### Create Month Dataframe
+
+```{r}
+date.start.month=seq(as.Date("2022-01-01"),length=6,by="months")
+df_b=data.frame(date.start.month)
+bulan = df_b$date.start.month
+```
+
+## Merge Data
+
+```{r}
+data <- cbind(tahanan_predict,napi_predict)
+data = round(data)
+data = cbind(bulan,data)
+prediksi <- data %>%
+  select(bulan,Tahanan,Narapidana)%>%
+  mutate(Jumlah = Tahanan+Narapidana)
+names(prediksi) <- c('BULAN','TAHANAN','NAPI','JUMLAH HUNIAN')
+hasil_data = rbind(hunian,prediksi)
+names(hasil_data) <- c('Month','Prisoners','Convicts','Total')
+hasil_data$Month <- format(hasil_data$Month, format ="%B %Y")
+```
+
+### Create interactive charts using echart
+
+```{r}
+hasil_data %>% 
+  e_charts(Month) %>% 
+  e_line(Prisoners, smooth = T) %>% 
+  e_line(Convicts, smooth = T) %>% 
+  e_line(Total, smooth = T)%>%
+  e_axis_labels(x = "Year")%>%
+  e_title("Number of prisoners and convicts", "2012-2021 and the predictions") %>% 
+  e_legend(right=100)%>%
+  e_theme("sakura")%>% 
+  e_tooltip(trigger = "axis"
+            #, formatter = e_tooltip_pointer_formatter("decimal")
+            , axisPointer = list(
+                type = "cross")
+            , backgroundColor = "rgba(255,255,255,0.8)")
+```

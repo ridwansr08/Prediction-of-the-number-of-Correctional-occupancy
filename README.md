@@ -5,7 +5,7 @@ Prediction of the Number of Occupancy of Prisons in Indonesia from 2012 to 2021 
 This is the Repository about Prediction of the number of Correctional occupancy in Indonesia. To illustrate how much is the number of correctional occupancy for the next 6 months without any policy
 
 ## Disclaimer
-Data on Number of Occupants can be retrieved on the website http://sdppublik.ditjenpas.go.id/analisis/public/grl/bulanan. by taking the total data on prisoners and convicts every month from the beginning of 2012 to the end of 2021
+Data on JUMLAH PENGHUNI.xlsx can be retrieved on the website http://sdppublik.ditjenpas.go.id/analisis/public/grl/bulanan. by taking the total data on prisoners and convicts every month from the beginning of 2012 to the end of 2021
 
 ## Technical
 Language: R (code is written in Rmd file)

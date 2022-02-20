@@ -4,7 +4,7 @@ Prediction of the number of Correctional occupancy in Indonesia from 2012 to 202
 ## Introduction
 This is the Repository about Prediction of the number of Correctional occupancy in Indonesia. To illustrate how much is the number of correctional occupancy for the next 6 months without any policy
 
-## Technicak
+## Technical
 Language: R (code is written in Rmd file)
 Libraries:
 * dplyr

@@ -36,4 +36,15 @@ Data on the Capacity of Prisons and Detention Centers in Indonesia as of Decembe
 9. Create interactive charts using echart
 
 ## Insight
-The Indonesian government, especially the Ministry of Law and Human Rights, must immediately make new policies, or change existing policies to reduce the number of convicts and detainees. Because, as of December 31, 2021, the total capacity of prisons/detention centers in Indonesia is 132,107
+The Indonesian government, especially the Ministry of Law and Human Rights : 
+1. must immediately make new policies, or change existing policies to reduce the number of convicts and detainees.
+2. Creating a new prison. but very expensive, Estimated around 100 billion rupiah for 1000 people
+
+Because, as of December 31, 2021, the total capacity of prisons/detention centers in Indonesia is 132,107
+with data December 31, 2021, Overcapacity is 107,74%
+with data Predict June 2022, Overcapacity is 114.67%
+
+What will happen if an overcapacity prison occurs?
+1. It is difficult to carry out coaching in prisons
+2. Worried about infectious diseases
+3. It is easy to disturb order in prisons
